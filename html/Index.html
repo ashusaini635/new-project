@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, content=initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        let scrollInterval;
+        let mouseMoveInterval;
+        let isScrolling = false;
+
+        function startScrolling() {
+            if (!scrollInterval) {
+                scrollInterval = setInterval(() => {
+                    window.scrollBy(0, 1); // Scroll down by 1 pixel
+                    simulateMouseMovement(); // Simulate mouse movement
+                }, 10); // Adjust the speed of scrolling here
+                isScrolling = true;
+                updateButtonStyles();
+            }
+        }
+
+        function stopScrolling() {
+            clearInterval(scrollInterval);
+            clearInterval(mouseMoveInterval); // Stop simulating mouse movement
+            scrollInterval = null; // Reset the interval variable
+            isScrolling = false;
+            updateButtonStyles();
+        }
+
+        function simulateMouseMovement() {
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: window.innerWidth / 2, // Center of the viewport
+                clientY: window.innerHeight / 2 // Center of the viewport
+            });
+            document.dispatchEvent(mouseEvent); // Dispatch the mouse event
+        }
+
+        function updateButtonStyles() {
+            const startButton = document.getElementById('startButton');
+            const stopButton = document.getElementById('stopButton');
+
+            if (isScrolling) {
+                startButton.classList.add('bg-green-500', 'text-white');
+                startButton.classList.remove('bg-gray-500', 'text-gray-300');
+                stopButton.classList.add('bg-red-500', 'text-white');
+                stopButton.classList.remove('bg-gray-500', 'text-gray-300');
+            } else {
+                startButton.classList.add('bg-gray-500', 'text-gray-300');
+                startButton.classList.remove('bg-green-500', 'text-white');
+                stopButton.classList.add('bg-gray-500', 'text-gray-300');
+                stopButton.classList.remove('bg-red-500', 'text-white');
+            }
+        }
+    </script>
+</head>
+<body class="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-10">
+        <button id="startButton" onclick="startScrolling()" class="bg-gray-500 text-gray-300 px-4 py-2 rounded-md">Start Scrolling</button>
+        <button id="stopButton" onclick="stopScrolling()" class="bg-gray-500 text-gray-300 px-4 py-2 rounded-md mt-4">Stop Scrolling</button>
+    </div>
+    <div class="mt-20">
+        <!-- Added content to enable scrolling -->
+        <div class="h-[1000000px] bg-gradient-to-b from-blue-200 to-blue-500 p-4">
+            <h1 class="text-3xl font-bold text-center text-white">Scrolling Content</h1>
+            <p class="text-lg text-white text-center mt-4">This is a demonstration of automatic scrolling.</p>
+            <p class="text-lg text-white text-center mt-4">Keep clicking the "Start Scrolling" button to see the effect!</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+            <p class="text-lg text-white text-center mt-4">More content to scroll...</p>
+        </div>
+    </div>
+</body>
+</html>
